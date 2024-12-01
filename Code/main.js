@@ -48,7 +48,7 @@ var Marketplace;
         setInterval(playRdmFuture, 1000);
     }
     function createRandomizer() {
-        const randomizer = Math.floor(Math.random() * 10);
+        const randomizer = Math.floor(Math.random() * 8);
         theRandomizer = randomizer;
         console.log(randomizer);
     }
@@ -70,5 +70,11 @@ var Marketplace;
         futureButton.addEventListener("click", stopAudio);
         futureButton.value = "Stop";
     }
+    const audioCtx = new AudioContext();
+    const audio = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
+    const source = audioCtx.createMediaElementSource(audio);
+    source.connect(audioCtx.destination);
+    audio.volume = 4;
+    audio.play();
 })(Marketplace || (Marketplace = {}));
 //# sourceMappingURL=main.js.map

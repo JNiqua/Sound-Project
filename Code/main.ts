@@ -61,7 +61,7 @@ namespace Marketplace {
     }
 
     function createRandomizer(): void {
-        const randomizer: number = Math.floor(Math.random()*10);
+        const randomizer: number = Math.floor(Math.random()*8);
         theRandomizer = randomizer;
         console.log(randomizer);
     }
@@ -87,4 +87,15 @@ namespace Marketplace {
         futureButton.addEventListener("click", stopAudio);
         futureButton.value = "Stop";
     }
+
+
+
+    const audioCtx: AudioContext = new AudioContext();
+    const audio: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
+
+    const source: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(audio);
+    source.connect(audioCtx.destination);
+
+    audio.volume = 4; 
+    audio.play();
 }
