@@ -91,11 +91,18 @@ namespace Marketplace {
 
 
     const audioCtx: AudioContext = new AudioContext();
-    const audio: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
+    const music: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
+    const loopi: HTMLAudioElement = new Audio("/AudioFiles/Present/pigeon_loop.wav");
 
-    const source: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(audio);
-    source.connect(audioCtx.destination);
+    const musicVolume: GainNode = audioCtx.createGain();
 
-    audio.volume = 4; 
-    audio.play();
+    const track: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(music);
+    track.connect(musicVolume).connect(audioCtx.destination);
+    const track2: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(loopi);
+    track2.connect(musicVolume).connect(audioCtx.destination);
+
+    musicVolume.gain.value = 1;
+    
+    loopi.play();
+    music.play();
 }
