@@ -1,6 +1,9 @@
 namespace Marketplace {
-    window.addEventListener("load", handleLoad);
+    // window.addEventListener("click", handleLoad);
+    // window.addEventListener("click", asfd);
 
+    const startButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("start");
+    startButton.addEventListener("click", handleLoad);
     const pastButton: HTMLInputElement = <HTMLInputElement>document.getElementById("past");
     pastButton.addEventListener("click", playPast);
     const presentButton: HTMLInputElement = <HTMLInputElement>document.getElementById("present");
@@ -10,9 +13,16 @@ namespace Marketplace {
     const stopButton: HTMLInputElement = <HTMLInputElement>document.getElementById("stop");
     stopButton.addEventListener("click", stopAudio);
     
-    export const audioCtx: AudioContext = new AudioContext();
-    audioCtx.suspend();
+    export let audioCtx: AudioContext;
 
+    let pastAudio: AudioScene;
+    let presentAudio: AudioScene;
+    let futureAudio: AudioScene;
+
+
+    
+    
+    
     const pastLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
     const pastLoop: HTMLAudioElement = new Audio("/AudioFiles/Past/MainMedieval.wav");
     const pastGenChurch: HTMLAudioElement = new Audio("/AudioFiles/Past/Church.wav");
@@ -23,7 +33,7 @@ namespace Marketplace {
     const pastGenHorsecart: HTMLAudioElement = new Audio("/AudioFiles/Past/Horsecart.wav");
     const pastGenTavern: HTMLAudioElement = new Audio("/AudioFiles/Past/Tavern.wav");
     
-    const pastAudio: AudioScene = new Past(pastLoopMusic, pastLoop, pastGenChurch, pastGenCoins, pastGenCrow, pastGenFight, pastGenHammering, pastGenHorsecart, pastGenTavern);
+    // const pastAudio: AudioScene = new Past(pastLoopMusic, pastLoop, pastGenChurch, pastGenCoins, pastGenCrow, pastGenFight, pastGenHammering, pastGenHorsecart, pastGenTavern);
     
     
     const presentLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Present/MarketMusic_Present.wav");
@@ -35,7 +45,7 @@ namespace Marketplace {
     const presentGenSuperMarket1: HTMLAudioElement = new Audio("/AudioFiles/Present/supermarket1.wav");
     const presentGenSuperMarket2: HTMLAudioElement = new Audio("/AudioFiles/Present/supermarket2.wav");
     
-    const presentAudio: AudioScene = new Present(presentLoopMusic, presentLoopCrowd, presentLoopWindleaves, presentLoopPigeons, presentGenCar, presentGenTrain, presentGenSuperMarket1, presentGenSuperMarket2);
+    // const presentAudio: AudioScene = new Present(presentLoopMusic, presentLoopCrowd, presentLoopWindleaves, presentLoopPigeons, presentGenCar, presentGenTrain, presentGenSuperMarket1, presentGenSuperMarket2);
     
     
     const futureLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Future/MarketMusic_Future.wav");
@@ -44,16 +54,25 @@ namespace Marketplace {
     const futureGenSpaceship1: HTMLAudioElement = new Audio("/AudioFiles/Future/Spaceship Flyby.wav");
     const futureGenspaceship2: HTMLAudioElement = new Audio("/AudioFiles/Future/SpaceshipDeep.wav");
     
-    const futureAudio: AudioScene = new Future(futureLoopMusic, futureLoop, futureGenFight, futureGenSpaceship1, futureGenspaceship2);
+    // const futureAudio: AudioScene = new Future(futureLoopMusic, futureLoop, futureGenFight, futureGenSpaceship1, futureGenspaceship2);
     
     let theRandomizer: number;
     
     
     function handleLoad(_event: Event): void {
+        asfd();
         startAudio();
         setInterval(createRandomizer, 1000);
     }
     
+    function asfd(): void {
+        audioCtx = new AudioContext();
+
+        pastAudio = new Past(pastLoopMusic, pastLoop, pastGenChurch, pastGenCoins, pastGenCrow, pastGenFight, pastGenHammering, pastGenHorsecart, pastGenTavern);
+        presentAudio = new Present(presentLoopMusic, presentLoopCrowd, presentLoopWindleaves, presentLoopPigeons, presentGenCar, presentGenTrain, presentGenSuperMarket1, presentGenSuperMarket2);
+        futureAudio = new Future(futureLoopMusic, futureLoop, futureGenFight, futureGenSpaceship1, futureGenspaceship2);
+    }
+
     function createRandomizer(): void {
         const randomizer: number = Math.floor(Math.random()*8);
         theRandomizer = randomizer;
