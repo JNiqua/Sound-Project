@@ -1,12 +1,15 @@
 "use strict";
 var Marketplace;
 (function (Marketplace) {
+    window.addEventListener("load", handleLoad);
     const pastButton = document.getElementById("past");
     pastButton.addEventListener("click", playPast);
     const presentButton = document.getElementById("present");
     presentButton.addEventListener("click", playPresent);
     const futureButton = document.getElementById("future");
     futureButton.addEventListener("click", playFuture);
+    const stopButton = document.getElementById("stop");
+    stopButton.addEventListener("click", stopAudio);
     Marketplace.audioCtx = new AudioContext();
     const pastLoopMusic = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
     const pastLoop = new Audio("/AudioFiles/Past/MainMedieval.wav");
@@ -33,61 +36,52 @@ var Marketplace;
     const futureGenSpaceship1 = new Audio("/AudioFiles/Future/Spaceship Flyby.wav");
     const futureGenspaceship2 = new Audio("/AudioFiles/Future/SpaceshipDeep.wav");
     const futureAudio = new Marketplace.Future(futureLoopMusic, futureLoop, futureGenFight, futureGenSpaceship1, futureGenspaceship2);
-    let theRandomizer = 0;
-    setInterval(createRandomizer, 1000);
-    console.log(theRandomizer);
-    function playPast() {
-        setInterval(pastAudio.increaseVolume, 500);
-        pastAudio.playLoopSound();
-        setInterval(playRdmPast, 1000);
-    }
-    function playPresent() {
-        presentAudio.playLoopSound();
-        setInterval(playRdmPresent, 1000);
-    }
-    function playFuture() {
-        futureAudio.playLoopSound();
-        setInterval(playRdmFuture, 1000);
+    let theRandomizer;
+    function handleLoad(_event) {
+        startAudio();
+        setInterval(createRandomizer, 1000);
     }
     function createRandomizer() {
         const randomizer = Math.floor(Math.random() * 8);
         theRandomizer = randomizer;
-        console.log(randomizer);
+        // console.log(randomizer);
     }
-    function stopAudio() {
-        window.location.reload();
+    function startAudio() {
+        pastAudio.playLoopSound();
+        setInterval(playRdmPast, 1000);
+        presentAudio.playLoopSound();
+        setInterval(playRdmPresent, 1000);
+        futureAudio.playLoopSound();
+        setInterval(playRdmFuture, 1000);
+    }
+    function playPast(_event) {
+        const a = setInterval(() => pastAudio.increaseVolume(a), 200);
+        const b = setInterval(() => presentAudio.decreaseVolume(b), 200);
+        const c = setInterval(() => futureAudio.decreaseVolume(c), 200);
+    }
+    function playPresent(_event) {
+        const a = setInterval(() => pastAudio.decreaseVolume(a), 200);
+        const b = setInterval(() => presentAudio.increaseVolume(b), 200);
+        const c = setInterval(() => futureAudio.decreaseVolume(c), 200);
+    }
+    function playFuture(_event) {
+        const a = setInterval(() => pastAudio.decreaseVolume(a), 200);
+        const b = setInterval(() => presentAudio.decreaseVolume(b), 200);
+        const c = setInterval(() => futureAudio.increaseVolume(c), 200);
     }
     function playRdmPast() {
         pastAudio.playGenSound(theRandomizer);
-        pastButton.addEventListener("click", stopAudio);
-        pastButton.value = "Stop";
     }
     function playRdmPresent() {
         presentAudio.playGenSound(theRandomizer);
-        presentButton.addEventListener("click", stopAudio);
-        presentButton.value = "Stop";
     }
     function playRdmFuture() {
         futureAudio.playGenSound(theRandomizer);
-        futureButton.addEventListener("click", stopAudio);
-        futureButton.value = "Stop";
     }
-    // const music: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
-    // const loopi: HTMLAudioElement = new Audio("/AudioFiles/Present/pigeon_loop.wav");
-    const musicVolume = Marketplace.audioCtx.createGain();
-    // const track: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(music);
-    // track.connect(musicVolume).connect(audioCtx.destination);
-    // const track2: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(loopi);
-    // track2.connect(musicVolume).connect(audioCtx.destination);
-    musicVolume.gain.value = 1;
-    // loopi.play();
-    // music.play();
-    // function crossfadePast(): void {
-    //     setInterval(pastAudio.increaseVolume, 500);
-    // }
-    // function crossfadePresent(): void {
-    // }
-    // function crossfadeFuture(): void {
-    // }
+    function stopAudio() {
+        const a = setInterval(() => pastAudio.decreaseVolume(a), 100);
+        const b = setInterval(() => presentAudio.decreaseVolume(b), 100);
+        const c = setInterval(() => futureAudio.decreaseVolume(c), 100);
+    }
 })(Marketplace || (Marketplace = {}));
 //# sourceMappingURL=main.js.map

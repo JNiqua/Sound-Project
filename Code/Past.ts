@@ -24,7 +24,7 @@ namespace Marketplace {
             this.genSound7 = _genSound7;
 
             this.pastVolume = audioCtx.createGain();
-            this.volume = 1;
+            this.volume = 0;
             this.pastVolume.gain.value = this.volume;
 
             this.setupSound();
@@ -52,19 +52,23 @@ namespace Marketplace {
             gen7.connect(this.pastVolume).connect(audioCtx.destination);
         }
 
-        increaseVolume(): void {
+        increaseVolume(_intervalId: number): void {
+            this.volume = this.volume + 0.1;
             this.pastVolume.gain.value = this.volume;
-            this.volume + 0.2;
+
             if(this.volume >= 1) {
-                this.volume = 1;
+                this.pastVolume.gain.value = 1;
+                clearInterval(_intervalId);
             }
         }
 
-        decreaseVolume(): void {
+        decreaseVolume(_intervalId: number): void {
+            this.volume = this.volume - 0.1;
             this.pastVolume.gain.value = this.volume;
-            this.volume - 0.2;
+
             if(this.volume <= 0) {
-                this.volume = 0;
+                this.pastVolume.gain.value = 0;
+                clearInterval(_intervalId);
             }
         }
 

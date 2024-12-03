@@ -5,10 +5,11 @@ var Marketplace;
         constructor(_music) {
             this.music = _music;
         }
-        increaseVolume() { }
-        decreaseVolume() { }
+        increaseVolume(_intervalId) { }
+        decreaseVolume(_intervalId) { }
         playLoopSound() { }
         playGenSound(_randomizer) { }
+        pauseAudio() { }
     }
     Marketplace.AudioScene = AudioScene;
 })(Marketplace || (Marketplace = {}));

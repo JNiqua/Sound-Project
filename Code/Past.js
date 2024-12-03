@@ -13,7 +13,7 @@ var Marketplace;
             this.genSound6 = _genSound6;
             this.genSound7 = _genSound7;
             this.pastVolume = Marketplace.audioCtx.createGain();
-            this.volume = 1;
+            this.volume = 0;
             this.pastVolume.gain.value = this.volume;
             this.setupSound();
         }
@@ -37,18 +37,20 @@ var Marketplace;
             const gen7 = Marketplace.audioCtx.createMediaElementSource(this.genSound7);
             gen7.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
         }
-        increaseVolume() {
+        increaseVolume(_intervalId) {
+            this.volume = this.volume + 0.1;
             this.pastVolume.gain.value = this.volume;
-            this.volume + 0.2;
             if (this.volume >= 1) {
-                this.volume = 1;
+                this.pastVolume.gain.value = 1;
+                clearInterval(_intervalId);
             }
         }
-        decreaseVolume() {
+        decreaseVolume(_intervalId) {
+            this.volume = this.volume - 0.1;
             this.pastVolume.gain.value = this.volume;
-            this.volume - 0.2;
             if (this.volume <= 0) {
-                this.volume = 0;
+                this.pastVolume.gain.value = 0;
+                clearInterval(_intervalId);
             }
         }
         playLoopSound() {

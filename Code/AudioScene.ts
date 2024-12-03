@@ -8,12 +8,14 @@ namespace Marketplace {
             
         }
 
-        increaseVolume(): void {}
+        increaseVolume(_intervalId: number): void {}
 
-        decreaseVolume(): void {}
+        decreaseVolume(_intervalId: number): void {}
         
         playLoopSound(): void {}
 
         playGenSound(_randomizer: number): void {}
+
+        pauseAudio(): void {}
     }
 }

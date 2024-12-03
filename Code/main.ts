@@ -1,10 +1,14 @@
 namespace Marketplace {
+    window.addEventListener("load", handleLoad);
+
     const pastButton: HTMLInputElement = <HTMLInputElement>document.getElementById("past");
     pastButton.addEventListener("click", playPast);
     const presentButton: HTMLInputElement = <HTMLInputElement>document.getElementById("present");
     presentButton.addEventListener("click", playPresent);
     const futureButton: HTMLInputElement = <HTMLInputElement>document.getElementById("future");
     futureButton.addEventListener("click", playFuture);
+    const stopButton: HTMLInputElement = <HTMLInputElement>document.getElementById("stop");
+    stopButton.addEventListener("click", stopAudio);
     
     export const audioCtx: AudioContext = new AudioContext();
 
@@ -17,10 +21,10 @@ namespace Marketplace {
     const pastGenHammering: HTMLAudioElement = new Audio("/AudioFiles/Past/Hammerring.wav");
     const pastGenHorsecart: HTMLAudioElement = new Audio("/AudioFiles/Past/Horsecart.wav");
     const pastGenTavern: HTMLAudioElement = new Audio("/AudioFiles/Past/Tavern.wav");
-
-    const pastAudio: Past = new Past(pastLoopMusic, pastLoop, pastGenChurch, pastGenCoins, pastGenCrow, pastGenFight, pastGenHammering, pastGenHorsecart, pastGenTavern);
-
-
+    
+    const pastAudio: AudioScene = new Past(pastLoopMusic, pastLoop, pastGenChurch, pastGenCoins, pastGenCrow, pastGenFight, pastGenHammering, pastGenHorsecart, pastGenTavern);
+    
+    
     const presentLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Present/MarketMusic_Present.wav");
     const presentLoopCrowd: HTMLAudioElement = new Audio("/AudioFiles/Present/crowd_loop.wav");
     const presentLoopWindleaves: HTMLAudioElement = new Audio("/AudioFiles/Present/windleaves_loop.wav");
@@ -29,93 +33,74 @@ namespace Marketplace {
     const presentGenTrain: HTMLAudioElement = new Audio("/AudioFiles/Present/train_stereo.wav");
     const presentGenSuperMarket1: HTMLAudioElement = new Audio("/AudioFiles/Present/supermarket1.wav");
     const presentGenSuperMarket2: HTMLAudioElement = new Audio("/AudioFiles/Present/supermarket2.wav");
-
+    
     const presentAudio: AudioScene = new Present(presentLoopMusic, presentLoopCrowd, presentLoopWindleaves, presentLoopPigeons, presentGenCar, presentGenTrain, presentGenSuperMarket1, presentGenSuperMarket2);
-
-
+    
+    
     const futureLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Future/MarketMusic_Future.wav");
     const futureLoop: HTMLAudioElement = new Audio("/AudioFiles/Future/FutureMain.wav");
     const futureGenFight: HTMLAudioElement = new Audio("/AudioFiles/Future/FutureFIght.wav");
     const futureGenSpaceship1: HTMLAudioElement = new Audio("/AudioFiles/Future/Spaceship Flyby.wav");
     const futureGenspaceship2: HTMLAudioElement = new Audio("/AudioFiles/Future/SpaceshipDeep.wav");
-
-    const futureAudio: AudioScene = new Future(futureLoopMusic, futureLoop, futureGenFight, futureGenSpaceship1, futureGenspaceship2);
-
-
-    let theRandomizer: number = 0;
-    setInterval(createRandomizer, 1000);
-    console.log(theRandomizer);
     
-    function playPast(): void {
-        setInterval(pastAudio.increaseVolume, 500);
-        pastAudio.playLoopSound();
-        setInterval(playRdmPast, 1000);
+    const futureAudio: AudioScene = new Future(futureLoopMusic, futureLoop, futureGenFight, futureGenSpaceship1, futureGenspaceship2);
+    
+    let theRandomizer: number;
+    
+    
+    function handleLoad(_event: Event): void {
+        startAudio();
+        setInterval(createRandomizer, 1000);
     }
-
-    function playPresent(): void {
-        presentAudio.playLoopSound();
-        setInterval(playRdmPresent, 1000);
-    }
-
-    function playFuture(): void {
-        futureAudio.playLoopSound();
-        setInterval(playRdmFuture, 1000);
-    }
-
+    
     function createRandomizer(): void {
         const randomizer: number = Math.floor(Math.random()*8);
         theRandomizer = randomizer;
-        console.log(randomizer);
+        // console.log(randomizer);
     }
 
-    function stopAudio(): void {
-        window.location.reload();
+    function startAudio(): void {
+        pastAudio.playLoopSound();
+        setInterval(playRdmPast, 1000);
+        presentAudio.playLoopSound();
+        setInterval(playRdmPresent, 1000);
+        futureAudio.playLoopSound();
+        setInterval(playRdmFuture, 1000);
+    }    
+
+    function playPast(_event: Event): void {
+        const a = setInterval(() => pastAudio.increaseVolume(a), 200);
+        const b = setInterval(() => presentAudio.decreaseVolume(b), 200);
+        const c = setInterval(() => futureAudio.decreaseVolume(c), 200);
+    }
+
+    function playPresent(_event: Event): void {
+        const a = setInterval(() => pastAudio.decreaseVolume(a), 200);
+        const b = setInterval(() => presentAudio.increaseVolume(b), 200);
+        const c = setInterval(() => futureAudio.decreaseVolume(c), 200);
+    }
+
+    function playFuture(_event: Event): void {
+        const a = setInterval(() => pastAudio.decreaseVolume(a), 200);
+        const b = setInterval(() => presentAudio.decreaseVolume(b), 200);
+        const c = setInterval(() => futureAudio.increaseVolume(c), 200);
     }
 
     function playRdmPast(): void {
         pastAudio.playGenSound(theRandomizer);
-        pastButton.addEventListener("click", stopAudio);
-        pastButton.value = "Stop";
     }
-
+    
     function playRdmPresent(): void {
         presentAudio.playGenSound(theRandomizer);
-        presentButton.addEventListener("click", stopAudio);
-        presentButton.value = "Stop";
     }
-
+    
     function playRdmFuture(): void {
         futureAudio.playGenSound(theRandomizer);
-        futureButton.addEventListener("click", stopAudio);
-        futureButton.value = "Stop";
     }
-
-
-
-    // const music: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
-    // const loopi: HTMLAudioElement = new Audio("/AudioFiles/Present/pigeon_loop.wav");
-
-    const musicVolume: GainNode = audioCtx.createGain();
-
-    // const track: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(music);
-    // track.connect(musicVolume).connect(audioCtx.destination);
-    // const track2: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(loopi);
-    // track2.connect(musicVolume).connect(audioCtx.destination);
-
-    musicVolume.gain.value = 1;
     
-    // loopi.play();
-    // music.play();
-
-    // function crossfadePast(): void {
-    //     setInterval(pastAudio.increaseVolume, 500);
-    // }
-
-    // function crossfadePresent(): void {
-
-    // }
-
-    // function crossfadeFuture(): void {
-
-    // }
+    function stopAudio(): void {
+        const a = setInterval(() => pastAudio.decreaseVolume(a), 100);
+        const b = setInterval(() => presentAudio.decreaseVolume(b), 100);
+        const c = setInterval(() => futureAudio.decreaseVolume(c), 100);
+    }
 }
