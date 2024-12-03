@@ -22,17 +22,17 @@ namespace Marketplace {
 
     
     
-    const pastLoopMusic: HTMLAudioElement = <HTMLAudioElement>document.getElementById("music");
-    // const pastLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
-    const pastLoop: HTMLAudioElement = <HTMLAudioElement>document.getElementById("main");
-    // const pastLoop: HTMLAudioElement = new Audio("/AudioFiles/Past/MainMedieval.wav");
-    const pastGenChurch: HTMLAudioElement = new Audio("/AudioFiles/Past/Church.wav");
-    const pastGenCoins: HTMLAudioElement = new Audio("/AudioFiles/Past/Coins1.wav");
-    const pastGenCrow: HTMLAudioElement = new Audio("/AudioFiles/Past/Crow.wav");
-    const pastGenFight: HTMLAudioElement = new Audio("/AudioFiles/Past/Fight.wav");
-    const pastGenHammering: HTMLAudioElement = new Audio("/AudioFiles/Past/Hammerring.wav");
-    const pastGenHorsecart: HTMLAudioElement = new Audio("/AudioFiles/Past/Horsecart.wav");
-    const pastGenTavern: HTMLAudioElement = new Audio("/AudioFiles/Past/Tavern.wav");
+    // const pastLoopMusic: HTMLAudioElement = <HTMLAudioElement>document.getElementById("music");
+    const pastLoopMusic: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/MarketMusic_Past.wav");
+    // const pastLoop: HTMLAudioElement = <HTMLAudioElement>document.getElementById("main");
+    const pastLoop: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/MainMedieval.wav");
+    const pastGenChurch: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/Church.wav");
+    const pastGenCoins: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/Coins1.wav");
+    const pastGenCrow: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/Crow.wav");
+    const pastGenFight: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/Fight.wav");
+    const pastGenHammering: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/Hammerring.wav");
+    const pastGenHorsecart: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/Horsecart.wav");
+    const pastGenTavern: HTMLAudioElement = new Audio("Sound-Project/AudioFiles/Past/Tavern.wav");
     
     // const pastAudio: AudioScene = new Past(pastLoopMusic, pastLoop, pastGenChurch, pastGenCoins, pastGenCrow, pastGenFight, pastGenHammering, pastGenHorsecart, pastGenTavern);
     
