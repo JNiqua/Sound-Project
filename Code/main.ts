@@ -90,7 +90,7 @@ namespace Marketplace {
 
 
 
-    const audioCtx: AudioContext = new AudioContext();
+    export const audioCtx: AudioContext = new AudioContext();
     const music: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
     const loopi: HTMLAudioElement = new Audio("/AudioFiles/Present/pigeon_loop.wav");
 
@@ -105,4 +105,8 @@ namespace Marketplace {
     
     loopi.play();
     music.play();
+
+    function crossfade(): void {
+
+    }
 }

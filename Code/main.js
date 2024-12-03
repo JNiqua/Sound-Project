@@ -70,16 +70,18 @@ var Marketplace;
         futureButton.addEventListener("click", stopAudio);
         futureButton.value = "Stop";
     }
-    const audioCtx = new AudioContext();
+    Marketplace.audioCtx = new AudioContext();
     const music = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
     const loopi = new Audio("/AudioFiles/Present/pigeon_loop.wav");
-    const musicVolume = audioCtx.createGain();
-    const track = audioCtx.createMediaElementSource(music);
-    track.connect(musicVolume).connect(audioCtx.destination);
-    const track2 = audioCtx.createMediaElementSource(loopi);
-    track2.connect(musicVolume).connect(audioCtx.destination);
+    const musicVolume = Marketplace.audioCtx.createGain();
+    const track = Marketplace.audioCtx.createMediaElementSource(music);
+    track.connect(musicVolume).connect(Marketplace.audioCtx.destination);
+    const track2 = Marketplace.audioCtx.createMediaElementSource(loopi);
+    track2.connect(musicVolume).connect(Marketplace.audioCtx.destination);
     musicVolume.gain.value = 1;
     loopi.play();
     music.play();
+    function crossfade() {
+    }
 })(Marketplace || (Marketplace = {}));
 //# sourceMappingURL=main.js.map

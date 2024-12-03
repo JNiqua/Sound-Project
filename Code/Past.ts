@@ -8,6 +8,7 @@ namespace Marketplace {
         genSound5: HTMLAudioElement;
         genSound6: HTMLAudioElement;
         genSound7: HTMLAudioElement;
+        pastVolume: GainNode = audioCtx.createGain();
 
         constructor(_music: HTMLAudioElement, _loopSound1: HTMLAudioElement, _genSound1: HTMLAudioElement, _genSound2: HTMLAudioElement, _genSound3: HTMLAudioElement, _genSound4: HTMLAudioElement, _genSound5: HTMLAudioElement, _genSound6: HTMLAudioElement, _genSound7: HTMLAudioElement) {
             super(_music);
@@ -19,6 +20,35 @@ namespace Marketplace {
             this.genSound5 = _genSound5;
             this.genSound6 = _genSound6;
             this.genSound7 = _genSound7;
+
+            this.setupSound();
+        }
+
+        setupSound(): void {
+            
+            const music: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.music);
+            music.connect(this.pastVolume).connect(audioCtx.destination);
+            const loop1: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.loopSound1);
+            loop1.connect(this.pastVolume).connect(audioCtx.destination);
+            const gen1: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.genSound1);
+            gen1.connect(this.pastVolume).connect(audioCtx.destination);
+            const gen2: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.genSound2);
+            gen2.connect(this.pastVolume).connect(audioCtx.destination);
+            const gen3: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.genSound3);
+            gen3.connect(this.pastVolume).connect(audioCtx.destination);
+            const gen4: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.genSound4);
+            gen4.connect(this.pastVolume).connect(audioCtx.destination);
+            const gen5: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.genSound5);
+            gen5.connect(this.pastVolume).connect(audioCtx.destination);
+            const gen6: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.genSound6);
+            gen6.connect(this.pastVolume).connect(audioCtx.destination);
+            const gen7: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(this.genSound7);
+            gen7.connect(this.pastVolume).connect(audioCtx.destination);
+        }
+
+        adjustVolume(): void {
+            let volume: number = 1;
+            this.pastVolume.gain.value = volume;
         }
 
         playLoopSound(): void {

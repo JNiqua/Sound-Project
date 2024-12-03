@@ -4,6 +4,7 @@ var Marketplace;
     class Past extends Marketplace.AudioScene {
         constructor(_music, _loopSound1, _genSound1, _genSound2, _genSound3, _genSound4, _genSound5, _genSound6, _genSound7) {
             super(_music);
+            this.pastVolume = Marketplace.audioCtx.createGain();
             this.loopSound1 = _loopSound1;
             this.genSound1 = _genSound1;
             this.genSound2 = _genSound2;
@@ -12,6 +13,31 @@ var Marketplace;
             this.genSound5 = _genSound5;
             this.genSound6 = _genSound6;
             this.genSound7 = _genSound7;
+            this.setupSound();
+        }
+        setupSound() {
+            const music = Marketplace.audioCtx.createMediaElementSource(this.music);
+            music.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+            const loop1 = Marketplace.audioCtx.createMediaElementSource(this.loopSound1);
+            loop1.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+            const gen1 = Marketplace.audioCtx.createMediaElementSource(this.genSound1);
+            gen1.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+            const gen2 = Marketplace.audioCtx.createMediaElementSource(this.genSound2);
+            gen2.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+            const gen3 = Marketplace.audioCtx.createMediaElementSource(this.genSound3);
+            gen3.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+            const gen4 = Marketplace.audioCtx.createMediaElementSource(this.genSound4);
+            gen4.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+            const gen5 = Marketplace.audioCtx.createMediaElementSource(this.genSound5);
+            gen5.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+            const gen6 = Marketplace.audioCtx.createMediaElementSource(this.genSound6);
+            gen6.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+            const gen7 = Marketplace.audioCtx.createMediaElementSource(this.genSound7);
+            gen7.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
+        }
+        adjustVolume() {
+            let volume = 1;
+            this.pastVolume.gain.value = volume;
         }
         playLoopSound() {
             this.music.loop = true;
