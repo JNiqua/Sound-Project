@@ -7,6 +7,7 @@ var Marketplace;
     presentButton.addEventListener("click", playPresent);
     const futureButton = document.getElementById("future");
     futureButton.addEventListener("click", playFuture);
+    Marketplace.audioCtx = new AudioContext();
     const pastLoopMusic = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
     const pastLoop = new Audio("/AudioFiles/Past/MainMedieval.wav");
     const pastGenChurch = new Audio("/AudioFiles/Past/Church.wav");
@@ -36,6 +37,7 @@ var Marketplace;
     setInterval(createRandomizer, 1000);
     console.log(theRandomizer);
     function playPast() {
+        setInterval(pastAudio.increaseVolume, 500);
         pastAudio.playLoopSound();
         setInterval(playRdmPast, 1000);
     }
@@ -70,18 +72,22 @@ var Marketplace;
         futureButton.addEventListener("click", stopAudio);
         futureButton.value = "Stop";
     }
-    Marketplace.audioCtx = new AudioContext();
-    const music = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
-    const loopi = new Audio("/AudioFiles/Present/pigeon_loop.wav");
+    // const music: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
+    // const loopi: HTMLAudioElement = new Audio("/AudioFiles/Present/pigeon_loop.wav");
     const musicVolume = Marketplace.audioCtx.createGain();
-    const track = Marketplace.audioCtx.createMediaElementSource(music);
-    track.connect(musicVolume).connect(Marketplace.audioCtx.destination);
-    const track2 = Marketplace.audioCtx.createMediaElementSource(loopi);
-    track2.connect(musicVolume).connect(Marketplace.audioCtx.destination);
+    // const track: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(music);
+    // track.connect(musicVolume).connect(audioCtx.destination);
+    // const track2: MediaElementAudioSourceNode = audioCtx.createMediaElementSource(loopi);
+    // track2.connect(musicVolume).connect(audioCtx.destination);
     musicVolume.gain.value = 1;
-    loopi.play();
-    music.play();
-    function crossfade() {
-    }
+    // loopi.play();
+    // music.play();
+    // function crossfadePast(): void {
+    //     setInterval(pastAudio.increaseVolume, 500);
+    // }
+    // function crossfadePresent(): void {
+    // }
+    // function crossfadeFuture(): void {
+    // }
 })(Marketplace || (Marketplace = {}));
 //# sourceMappingURL=main.js.map

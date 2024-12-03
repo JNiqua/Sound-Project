@@ -5,6 +5,8 @@ var Marketplace;
         constructor(_music) {
             this.music = _music;
         }
+        increaseVolume() { }
+        decreaseVolume() { }
         playLoopSound() { }
         playGenSound(_randomizer) { }
     }

@@ -8,6 +8,10 @@ namespace Marketplace {
             
         }
 
+        increaseVolume(): void {}
+
+        decreaseVolume(): void {}
+        
         playLoopSound(): void {}
 
         playGenSound(_randomizer: number): void {}

@@ -8,7 +8,9 @@ namespace Marketplace {
         genSound5: HTMLAudioElement;
         genSound6: HTMLAudioElement;
         genSound7: HTMLAudioElement;
-        pastVolume: GainNode = audioCtx.createGain();
+
+        pastVolume: GainNode;
+        volume: number;
 
         constructor(_music: HTMLAudioElement, _loopSound1: HTMLAudioElement, _genSound1: HTMLAudioElement, _genSound2: HTMLAudioElement, _genSound3: HTMLAudioElement, _genSound4: HTMLAudioElement, _genSound5: HTMLAudioElement, _genSound6: HTMLAudioElement, _genSound7: HTMLAudioElement) {
             super(_music);
@@ -20,6 +22,10 @@ namespace Marketplace {
             this.genSound5 = _genSound5;
             this.genSound6 = _genSound6;
             this.genSound7 = _genSound7;
+
+            this.pastVolume = audioCtx.createGain();
+            this.volume = 1;
+            this.pastVolume.gain.value = this.volume;
 
             this.setupSound();
         }
@@ -46,9 +52,20 @@ namespace Marketplace {
             gen7.connect(this.pastVolume).connect(audioCtx.destination);
         }
 
-        adjustVolume(): void {
-            let volume: number = 1;
-            this.pastVolume.gain.value = volume;
+        increaseVolume(): void {
+            this.pastVolume.gain.value = this.volume;
+            this.volume + 0.2;
+            if(this.volume >= 1) {
+                this.volume = 1;
+            }
+        }
+
+        decreaseVolume(): void {
+            this.pastVolume.gain.value = this.volume;
+            this.volume - 0.2;
+            if(this.volume <= 0) {
+                this.volume = 0;
+            }
         }
 
         playLoopSound(): void {

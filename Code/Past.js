@@ -4,7 +4,6 @@ var Marketplace;
     class Past extends Marketplace.AudioScene {
         constructor(_music, _loopSound1, _genSound1, _genSound2, _genSound3, _genSound4, _genSound5, _genSound6, _genSound7) {
             super(_music);
-            this.pastVolume = Marketplace.audioCtx.createGain();
             this.loopSound1 = _loopSound1;
             this.genSound1 = _genSound1;
             this.genSound2 = _genSound2;
@@ -13,6 +12,9 @@ var Marketplace;
             this.genSound5 = _genSound5;
             this.genSound6 = _genSound6;
             this.genSound7 = _genSound7;
+            this.pastVolume = Marketplace.audioCtx.createGain();
+            this.volume = 1;
+            this.pastVolume.gain.value = this.volume;
             this.setupSound();
         }
         setupSound() {
@@ -35,9 +37,19 @@ var Marketplace;
             const gen7 = Marketplace.audioCtx.createMediaElementSource(this.genSound7);
             gen7.connect(this.pastVolume).connect(Marketplace.audioCtx.destination);
         }
-        adjustVolume() {
-            let volume = 1;
-            this.pastVolume.gain.value = volume;
+        increaseVolume() {
+            this.pastVolume.gain.value = this.volume;
+            this.volume + 0.2;
+            if (this.volume >= 1) {
+                this.volume = 1;
+            }
+        }
+        decreaseVolume() {
+            this.pastVolume.gain.value = this.volume;
+            this.volume - 0.2;
+            if (this.volume <= 0) {
+                this.volume = 0;
+            }
         }
         playLoopSound() {
             this.music.loop = true;
