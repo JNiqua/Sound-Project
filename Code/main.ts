@@ -22,9 +22,10 @@ namespace Marketplace {
 
     
     
-    
-    const pastLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
-    const pastLoop: HTMLAudioElement = new Audio("/AudioFiles/Past/MainMedieval.wav");
+    const pastLoopMusic: HTMLAudioElement = <HTMLAudioElement>document.getElementById("music");
+    // const pastLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
+    const pastLoop: HTMLAudioElement = <HTMLAudioElement>document.getElementById("main");
+    // const pastLoop: HTMLAudioElement = new Audio("/AudioFiles/Past/MainMedieval.wav");
     const pastGenChurch: HTMLAudioElement = new Audio("/AudioFiles/Past/Church.wav");
     const pastGenCoins: HTMLAudioElement = new Audio("/AudioFiles/Past/Coins1.wav");
     const pastGenCrow: HTMLAudioElement = new Audio("/AudioFiles/Past/Crow.wav");
