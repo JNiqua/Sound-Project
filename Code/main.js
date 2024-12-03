@@ -11,6 +11,7 @@ var Marketplace;
     const stopButton = document.getElementById("stop");
     stopButton.addEventListener("click", stopAudio);
     Marketplace.audioCtx = new AudioContext();
+    Marketplace.audioCtx.suspend();
     const pastLoopMusic = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
     const pastLoop = new Audio("/AudioFiles/Past/MainMedieval.wav");
     const pastGenChurch = new Audio("/AudioFiles/Past/Church.wav");
@@ -55,16 +56,19 @@ var Marketplace;
         setInterval(playRdmFuture, 1000);
     }
     function playPast(_event) {
+        Marketplace.audioCtx.resume();
         const a = setInterval(() => pastAudio.increaseVolume(a), 200);
         const b = setInterval(() => presentAudio.decreaseVolume(b), 200);
         const c = setInterval(() => futureAudio.decreaseVolume(c), 200);
     }
     function playPresent(_event) {
+        Marketplace.audioCtx.resume();
         const a = setInterval(() => pastAudio.decreaseVolume(a), 200);
         const b = setInterval(() => presentAudio.increaseVolume(b), 200);
         const c = setInterval(() => futureAudio.decreaseVolume(c), 200);
     }
     function playFuture(_event) {
+        Marketplace.audioCtx.resume();
         const a = setInterval(() => pastAudio.decreaseVolume(a), 200);
         const b = setInterval(() => presentAudio.decreaseVolume(b), 200);
         const c = setInterval(() => futureAudio.increaseVolume(c), 200);

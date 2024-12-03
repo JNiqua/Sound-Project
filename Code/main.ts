@@ -11,6 +11,7 @@ namespace Marketplace {
     stopButton.addEventListener("click", stopAudio);
     
     export const audioCtx: AudioContext = new AudioContext();
+    audioCtx.suspend();
 
     const pastLoopMusic: HTMLAudioElement = new Audio("/AudioFiles/Past/MarketMusic_Past.wav");
     const pastLoop: HTMLAudioElement = new Audio("/AudioFiles/Past/MainMedieval.wav");
@@ -69,18 +70,21 @@ namespace Marketplace {
     }    
 
     function playPast(_event: Event): void {
+        audioCtx.resume();
         const a = setInterval(() => pastAudio.increaseVolume(a), 200);
         const b = setInterval(() => presentAudio.decreaseVolume(b), 200);
         const c = setInterval(() => futureAudio.decreaseVolume(c), 200);
     }
 
     function playPresent(_event: Event): void {
+        audioCtx.resume();
         const a = setInterval(() => pastAudio.decreaseVolume(a), 200);
         const b = setInterval(() => presentAudio.increaseVolume(b), 200);
         const c = setInterval(() => futureAudio.decreaseVolume(c), 200);
     }
 
     function playFuture(_event: Event): void {
+        audioCtx.resume();
         const a = setInterval(() => pastAudio.decreaseVolume(a), 200);
         const b = setInterval(() => presentAudio.decreaseVolume(b), 200);
         const c = setInterval(() => futureAudio.increaseVolume(c), 200);
